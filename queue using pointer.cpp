@@ -50,7 +50,7 @@ return;
 
 void pop(){
     if(is_empty()){
-        cout<"The Queue is Empty"<<endl;
+        cout<<"The Queue is Empty"<<endl;
         return;
     }
 

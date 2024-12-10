@@ -1,0 +1,111 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void hepify(int arr[], int n, int i) {
+    int largest = i;
+    int left = 2 * i;
+    int right = 2 * i + 1;
+
+    if (left <= n && arr[largest] < arr[left]) {
+        largest = left;
+    }
+
+    if (right <= n && arr[largest] < arr[right]) {
+        largest = right;
+    }
+
+    if (largest != i) {
+        swap(arr[largest], arr[i]);
+        hepify(arr, n, largest);
+    }
+}
+
+void minhep(int arr[], int n, int i) {
+    int smallest = i;
+    int left = 2 * i;
+    int right = 2 * i + 1;
+
+    if (left <= n && arr[left] < arr[smallest]) {
+        smallest = left;
+    }
+    if (right <= n && arr[right] < arr[smallest]) {
+        smallest = right;
+    }
+
+    if (smallest != i) {
+        swap(arr[smallest], arr[i]);
+        minhep(arr, n, smallest);
+    }
+}
+
+void heapSort(int arr[], int n) {
+    int size = n;
+    while (size > 1) {
+        // Step 1: Swap the root (max element) with the last element
+        swap(arr[size], arr[1]);
+
+        // Step 2: Reduce the heap size
+        size--;
+
+        // Step 3: Restore max-heap property
+        hepify(arr, size, 1);
+    }
+}
+
+
+
+void accendingheapSort(int arr[], int n) {
+    int size = n;
+    while (size > 1) {
+        // Step 1: Swap the root (max element) with the last element
+        swap(arr[size], arr[1]);
+
+        // Step 2: Reduce the heap size
+        size--;
+
+        // Step 3: Restore max-heap property
+        minhep(arr, size, 1);
+    }
+}
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+
+    int arr[6] = {-1, 54, 53, 55, 52, 50}; // 1-based indexing
+    int n = 5;
+
+    // Build max-heap
+    for (int i = n / 2; i > 0; i--) {
+        hepify(arr, n, i);
+    }
+
+    // Print the max-heap
+    cout << "Max-Heap: ";
+    for (int i = 1; i <= n; i++) {
+        cout << arr[i] << ' ';
+    }
+    cout << endl;
+
+    // Heap sort
+    heapSort(arr, n);
+    //O(nlogn)
+    // Print sorted array
+    cout << "Sorted Array (Descending): ";
+    for (int i = 1; i <= n; i++) {
+        cout << arr[i] << ' ';
+    }
+    cout << endl;
+
+
+     cout << "Sorted Array (Descending): ";
+
+     accendingheapSort(arr,n);
+    for (int i = 1; i <= n; i++) {
+        cout << arr[i] << ' ';
+    }
+    cout << endl;
+
+    return 0;
+}
+
+
